@@ -1,0 +1,82 @@
+<div class="col-lg-3">
+			<div class="sidebar">
+
+				<!-- Latest Posts -->
+				<div class="sidebar_latest">
+					<div class="sidebar_title">Latest Posts</div>
+					<div class="latest_posts">
+						
+
+						<!-- Latest Post -->
+						{{#each recentPosts}}
+							<div class="latest_post d-flex flex-row align-items-start justify-content-start">
+								<div><div class="latest_post_image"><a href="/posts/view/{{_id}}"><img src="/uploads/blogs/{{image}}" alt="https://unsplash.com/@agkdesign"></a></div></div>
+								<div class="latest_post_content">
+									<div class="post_category_small cat_world" style="height: auto; width: auto;"><a href="{{category.title}}">{{category.title}}</a></div>
+									<div class="latest_post_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+									<div class="latest_post_date">{{moment created_at}}</div>
+								</div>
+							</div>
+						{{/each}}
+
+						
+					</div>
+				</div>
+
+				<!-- Extra -->
+				<div class="sidebar_extra">
+					<a href="#">
+						<div class="sidebar_title">Advertisement</div>
+						<div class="sidebar_extra_container">
+							<div class="background_image" style="background-image:url(/images/extra_2.jpg)"></div>
+							<div class="sidebar_extra_content">
+								<div class="sidebar_extra_title">30%</div>
+								<div class="sidebar_extra_title">off</div>
+								<div class="sidebar_extra_subtitle">Buy online now</div>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<!-- Most Viewed -->
+
+				<div class="most_viewed">
+					<div class="sidebar_title">Most Viewed</div>
+					<div class="most_viewed_items">
+						
+						<!-- Most Viewed Item -->
+						{{#each porpularPosts}}
+							<div class="most_viewed_item d-flex flex-row align-items-start justify-content-start">
+								<div><div class="most_viewed_num">0{{inc @index}}.</div></div>
+								<div class="most_viewed_content">
+									<div class="post_category_small cat_video" style="height: auto; width: auto;"><a href="/categories/{{category.title}}">{{category.title}}</a></div>
+									<div class="most_viewed_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+									<div class="most_viewed_date"><a >{{moment created_at}}</a></div>
+								</div>
+							</div>
+						{{/each}}
+
+						
+
+						
+
+					</div>
+				</div>
+
+				<!-- Extra -->
+				<div class="sidebar_extra">
+					<a href="#">
+						<div class="sidebar_title">Advertisement</div>
+						<div class="sidebar_extra_container">
+							<div class="background_image" style="background-image:url(/images/extra_2.jpg)"></div>
+							<div class="sidebar_extra_content">
+								<div class="sidebar_extra_title">30%</div>
+								<div class="sidebar_extra_title">off</div>
+								<div class="sidebar_extra_subtitle">Buy online now</div>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			</div>
+		</div>

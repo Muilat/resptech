@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{@deFaultPageTitle }}{{ pageTitle}}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Tech Mag template project">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/styles/bootstrap-4.1.2/bootstrap.min.css">
+        <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/styles/style.css">
+
+        {{{block "stylesheets"}}}
+    </head>
+    <body>
+
+        <div class="super_container">
+        
+            <!-- Header -->
+            {{> header }}
+            <!-- Menu -->
+            {{> menu }}
+
+
+            <!-- Home -->
+
+            <div class="home">
+                {{#unless home}}
+                    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/images/footer.jpg" data-speed="0.8"></div>
+                    <div class="home_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_content">
+                                        <div class="home_title">Article</div>
+                                        <div class="breadcrumbs">
+                                            <ul class="d-flex flex-row align-items-start justify-content-start">
+                                                <li><a href="/index.html">Home</a></li>
+                                                <li><a href="/category.html">Technology</a></li>
+                                                <li>Article</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {{else}}
+                    <!-- Home Slider -->
+                    <div class="home_slider_container">
+                        <div class="owl-carousel owl-theme home_slider">
+                            <!-- Slide -->
+                            <div class="owl-item home_slider_item">
+                                <div class="background_image" style="background-image:url(/images/home_slider.jpg)"></div>
+                                <div class="home_slider_content text-center">
+                                    <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                                        <div class="home_category"><a href="category.html">technology</a></div>
+                                        <div class="home_title">Building the Future</div>
+                                        <div class="home_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae sapien porttitor, dignissim quam sit amet, aliquam lorem. Fusce id ligula non risus mollis consectetur</div>
+                                        <div class="home_button trans_200"><a href="#">read more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide -->
+                            <div class="owl-item home_slider_item">
+                                <div class="background_image" style="background-image:url(images/home_slider.jpg)"></div>
+                                <div class="home_slider_content text-center">
+                                    <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                                        <div class="home_category"><a href="category.html">technology</a></div>
+                                        <div class="home_title">Building the Future</div>
+                                        <div class="home_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae sapien porttitor, dignissim quam sit amet, aliquam lorem. Fusce id ligula non risus mollis consectetur</div>
+                                        <div class="home_button trans_200"><a href="#">read more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide -->
+                            <div class="owl-item home_slider_item">
+                                <div class="background_image" style="background-image:url(images/home_slider.jpg)"></div>
+                                <div class="home_slider_content text-center">
+                                    <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                                        <div class="home_category"><a href="category.html">technology</a></div>
+                                        <div class="home_title">Building the Future</div>
+                                        <div class="home_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae sapien porttitor, dignissim quam sit amet, aliquam lorem. Fusce id ligula non risus mollis consectetur</div>
+                                        <div class="home_button trans_200"><a href="#">read more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Home Slider Navigation -->
+                        <div class="home_slider_nav home_slider_prev trans_200"><i class="fa fa-angle-left trans_200" aria-hidden="true"></i></div>
+                        <div class="home_slider_nav home_slider_next trans_200"><i class="fa fa-angle-right trans_200" aria-hidden="true"></i></div>
+                    </div>
+                {{/unless}}
+                {{#if home}}
+                    <!-- Intro -->
+
+                    <div class="intro">
+                        <div class="container">
+                            <div class="row">
+
+                                {{#each categories}}
+                                    {{#ifCond @index "==" 3}}
+                                        </div></div></div><div class="intro"><div class="container"><div class="row">
+                                    {{/ifCond}}
+                                    <!-- Intro Item -->
+                                    <div class="col-md-4 intro_col">
+                                        <div class="intro_item">
+                                            <img src="/uploads/categories/{{image}}" alt="" class="img-responsive">
+                                            <div class="intro_content trans_200"><a href="category.html">{{title}}</a></div>
+                                        </div>
+                                    </div>
+
+                                {{/each}}
+
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+
+
+            </div>
+
+            <!-- Content Container -->
+
+            <div class="content_container">
+                {{{format_messages messages}}}
+                
+                {{{body}}}
+
+
+            </div>
+        
+            <!-- Footer -->
+            {{> footer}}
+
+            {{{block "extras"}}}
+
+ 
+        </div>
+
+        <script src="/js/jquery-3.2.1.min.js"></script>
+        <script src="/styles/bootstrap-4.1.2/popper.js"></script>
+        <script src="/styles/bootstrap-4.1.2/bootstrap.min.js"></script>
+        <script src="/plugins/greensock/TweenMax.min.js"></script>
+        <script src="/plugins/greensock/TimelineMax.min.js"></script>
+        <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+        <script src="/plugins/greensock/animation.gsap.min.js"></script>
+        <script src="/plugins/greensock/ScrollToPlugin.min.js"></script>
+        <script src="/plugins/easing/easing.js"></script>
+        <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+        <script>
+
+        </script>
+
+        {{{block "scripts"}}}
+
+
+    </body>
+</html>

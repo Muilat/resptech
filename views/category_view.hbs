@@ -1,0 +1,138 @@
+{{#extend 'stylesheets'}}
+	<link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
+
+	<link rel="stylesheet" type="text/css" href="/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/responsive.css">
+        <link rel="stylesheet" type="text/css" href="/styles/single.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/styles/single_responsive.css"> -->
+
+{{/extend}}
+<div class="container">
+	<div class="row">
+
+
+		<div class="col-lg-9">
+			<div class="main_content" style="padding-top: 0px">
+
+				{{#ifCond pageId "==" "video_category"}}
+					<div class="row world_row">
+						<div class="col-lg-11">
+							<div class="row">
+								{{#each posts}}
+									{{#ifCond @index "==" 0}} <!-- first item -->
+										<!-- Post -->
+										<div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
+											<div class="post_image">
+												<a href="/posts/view/{{_id}}"><img src="/uploads/blogs/{{image}}" alt="https://unsplash.com/@lloydaleveque"></a>
+											</div>
+											<div class="post_content">
+												<!-- <div class="post_category cat_world"><a href="/categories/{{category.title}}">{{category.title}}</a></div> -->
+												<div class="post_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+												 
+												<div class="post_info d-flex flex-row align-items-center justify-content-start col-lg-9">
+													<div class="post_author d-flex flex-row align-items-center justify-content-start">
+														<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+														<div class="post_author_name"><a href="#">{{author}}</a></div>
+													</div>
+													<div class="post_date"><a href="#">{{moment created_at}}</a></div>
+													<div class="post_comments_count ml-auto" style="padding-top: 0px;"><a href="/posts/view/{{_id}}#comments">{{count comments}} comments</a></div>
+												</div>
+											</div>
+										</div>
+									{{else}}
+										<div class="col-lg-6">
+											
+											<!-- Post -->
+											<div class="post_item post_v_med d-flex flex-column align-items-start justify-content-start">
+												<div class="post_image"><a href="/posts/view/{{_id}}"><img src="/uploads/blogs/{{image}}" alt="https://unsplash.com/@lloydaleveque"></a></div>
+												<div class="post_content">
+													<!-- <div class="post_category cat_technology"><a href="/categories/{{category.title}}">{{category.title}}</a></div> -->
+													<div class="post_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+													<div class="post_info d-flex flex-row align-items-center justify-content-start">
+														<div class="post_author d-flex flex-row align-items-center justify-content-start">
+															<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+															<div class="post_author_name"><a href="#">{{author}}</a></div>
+														</div>
+														<div class="post_date"><a href="#">{{moment created_at}}</a></div>
+														<div class="post_comments ml-auto"><a href="#">{{count comments}} comments</a></div>
+													</div>
+													<!-- <div class="post_text">
+														<p>vallis risus vel condimentum. Nullam auctor lorem in libero.</p>
+													</div> -->
+												</div>
+											</div>
+										</div>
+									{{/ifCond}}
+								{{/each}}
+							</div>
+							
+						</div>
+					</div>
+
+
+				{{/ifCond}}
+
+				<!-- other categories -->
+				{{#ifCond pageId "!=" "video_category"}}
+
+					<div class="technology" style="padding-top: 0px">
+						<!-- <div class="section_title_container d-flex flex-row align-items-start justify-content-start">
+							<div>
+								<div class="section_title">Technology</div>
+								<div class="section_subtitle">Handpicked articles</div>
+							</div>
+						</div>
+						<div class="section_bar"></div> -->
+
+						<div class="technology_content">
+							
+							<!-- Post -->
+
+							{{#each posts}}
+								<div class="post_item post_h_large">
+									<div class="row">
+										<div class="col-lg-5">
+											<div class="post_image"><a href="/posts/view/{{_id}}"><img src="/uploads/blogs/{{image}}" alt="https://unsplash.com/@jmckinven"></a></div>
+										</div>
+										<div class="col-lg-7">
+											<div class="post_content" style="padding-top: 0px;">
+												<div class="post_category cat_technology"><a href="/categories/{{category.title}}">{{category.title}}</a></div>
+												<div class="post_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+												<div class="post_info d-flex flex-row align-items-center justify-content-start">
+													<div class="post_author d-flex flex-row align-items-center justify-content-start">
+														<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+														<div class="post_author_name"><a href="#">{{author}}</a></div>
+													</div>
+													<div class="post_date"><a href="#">{{moment created_at}}</a></div>
+													<div class="post_comments_count ml-auto" style="padding-top: 0px;"><a href="/posts/view/{{_id}}#comments">{{count comments}} comments</a></div>
+												</div>
+												<div class="post_text">
+													<p>{{{blog_body body _id}}}</p>
+												</div>
+											</div>
+										</div>
+									</div>	
+								</div>
+							{{/each}}
+						</div>
+					</div>
+				{{/ifCond}}
+
+			</div>
+
+			{{{paginator paginate pageCount pages }}}
+
+		</div>
+
+		<!-- Sidebar -->
+
+		{{> aside }}
+		
+	</div>
+</div>
+{{#extend 'scripts'}}
+
+	<script src="/js/single.js"></script>
+{{/extend}}

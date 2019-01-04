@@ -1,0 +1,14 @@
+
+.pagination {
+	margin-top: 20px;
+	
+}
+.pagination > li {
+	margin: auto;
+	
+}
+.pagination > li > a{
+	width:auto;
+	height:auto; 
+	color:#fff;
+}

@@ -1,0 +1,44 @@
+{{#ifCond @index ">" 0}}<!-- not first item -->
+										{{#ifCond @index "<" 3}}<!-- second or third item -->
+											{{#ifCond @index "==" 1}}<!-- second  item -->
+
+											<div class="col-lg-4">
+											{{/ifCond}}
+												<!-- Post -->
+												<div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
+													<div class="post_image"><a href="/posts/view/{{_id}}"><img src="/uploads/blogs/{{image}}" alt="https://unsplash.com/@lloydaleveque"></a></div>
+													<div class="post_content">
+														<div class="post_category cat_world"><a href="/categories/{{category.title}}">{{category.title}}</a></div>
+														<div class="post_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+														<div class="post_info d-flex flex-row align-items-center justify-content-start">
+															<div class="post_author d-flex flex-row align-items-center justify-content-start">
+																<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+																<div class="post_author_name"><a href="#">{{author}}</a></div>
+															</div>
+															<div class="post_date"><a href="#">{{moment created_at}}</a></div>
+														</div>
+													</div>
+												</div>
+
+											{{#ifCond @index "==" 1}}
+											</div>
+											{{/ifCond}}
+										{{/ifCond}}
+
+										{{#ifCond @index ">" 2}}<!--neither first, second nor third item -->
+											<div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
+												<div class="post_image"><a href="/posts/view/{{_id}}"><img src="/uploads/blogs/{{image}}" alt="https://unsplash.com/@lloydaleveque"></a></div>
+												<div class="post_content">
+													<div class="post_category cat_world"><a href="/categories/{{category.title}}">{{category.title}}</a></div>
+													<div class="post_title"><a href="/posts/view/{{_id}}">{{title}}</a></div>
+													<div class="post_info d-flex flex-row align-items-center justify-content-start">
+														<div class="post_author d-flex flex-row align-items-center justify-content-start">
+															<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+															<div class="post_author_name"><a href="#">{{author}}</a></div>
+														</div>
+														<div class="post_date"><a href="#">{{moment created_at}}</a></div>
+													</div>
+												</div>
+											</div>
+											{{/ifCond}}
+									{{/ifCond}}
