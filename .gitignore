@@ -5,4 +5,5 @@ node_modules
 bower_components
 public/ckeditor
 public/js/plugins
-public/img
+public/images
+public/uploads
