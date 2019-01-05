@@ -93,14 +93,17 @@
                         <div class="home_slider_nav home_slider_next trans_200"><i class="fa fa-angle-right trans_200" aria-hidden="true"></i></div>
                     </div>
                 {{/unless}}
-                {{#if home}}
+                
+                {{!--{{#if home}}
                     <!-- Intro -->
 
                     <div class="intro">
                         <div class="container">
                             <div class="row">
 
+                                
                                 {{#each categories}}
+                                    
                                     {{#ifCond @index "==" 3}}
                                         </div></div></div><div class="intro"><div class="container"><div class="row">
                                     {{/ifCond}}
@@ -108,16 +111,15 @@
                                     <div class="col-md-4 intro_col">
                                         <div class="intro_item">
                                             <img src="/uploads/categories/{{image}}" alt="" class="img-responsive">
-                                            <div class="intro_content trans_200"><a href="category.html">{{title}}</a></div>
+                                            <div class="intro_content trans_200"><a href="/categories/{{title}}">{{title}}</a></div>
                                         </div>
                                     </div>
 
                                 {{/each}}
-
                             </div>
                         </div>
                     </div>
-                {{/if}}
+                {{/if}}--}}
 
 
             </div>

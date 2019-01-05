@@ -11,20 +11,59 @@ const paginate = require('express-paginate');
 // var formidable = require('formidable');
 // var fs = require("fs");
 var  path = require("path");
+var Jimp = require("jimp");
 
 
 const multer = require('multer');
 // Set The Storage Engine
+image_path = './public/uploads/categories/';
 var obj = {};
 var storage = multer.diskStorage({
-  destination: './public/uploads/categories/',
+  destination: image_path,
   filename: function(req, file, cb){
     	var ext = path.extname(file.originalname);
         var file_name = Date.now()+ext;
         obj.file_name = file_name;
-        
+	
+	  	
+
         cb(null,file_name);
-  }
+        //manipulate the image
+	  	Jimp.read(image_path+obj.file_name)
+	  		.then(image=>{
+	  		// image.scale(0.5)
+	  		// 	.resize(600,600)//to get close to images used with template
+	  			
+	  		// 	.quality(60)//jst used it as used in example
+	  		// 	.write(image_path+obj.file_name);
+	  			var w = image.bitmap.width; // the width of the image
+	    		var h = image.bitmap.height; // the height of the image
+		  		if(w > 600 || h > 600){
+
+		  		
+		  			console.log(w +" > "+ h);
+			  		image.scale(0.5)
+			  			.resize(600,600)//to get close to images used with template
+			  			
+			  			.quality(60)//jst used it as used in example
+			  			.write(image_path+obj.file_name);
+			  		}
+			  	else{
+
+		  			console.log(w +" < "+ h);
+			  		image.resize(600,600)//to get close to images used with template
+			  			
+			  			.quality(60)//jst used it as used in example
+			  			.write(image_path+obj.file_name);
+			  	}
+			  })
+	  		.catch(err=>{
+		  		console.log(err);
+
+	  		})
+
+	  	
+  	}
 });
 
 // Init Upload
@@ -46,6 +85,14 @@ function checkFileType(file, req, cb){
   // Check mime
   const mimetype = filetypes.test(file.mimetype);
   if(mimetype && extname){
+  	
+  	 // Jimp.read(obj.file_name)
+  		// .then(image=>{
+  		// 	return image.resize(600,600)//to get close to images used with template
+  		// 	.quality(60)//just used it as used in example
+  		// 	.write(obj.file_name);
+  		// })
+  		// .catch(err=>{throw err});	
     return cb(null,true);
   } else {
 		obj.file_name = '';
@@ -113,7 +160,7 @@ router.post('/add', upload, validateBody, function(req, res){
 
 	    category.save(function(err){
 			if(err) throw err;
-			// console.log(category); 
+			console.log(category); 
 			res.redirect(303, '/categories');
 
 		});
@@ -132,33 +179,21 @@ router.get('/:category', async (req, res, next) =>{
 			return next(err);
 		if(!category)
 			return next();
-		// else{
-			 //  i blv you are using Node v7.6.0+ which has async/await support
-  	
-
-			// Post.find({category:category}).sort('-created_at').populate('category').exec( function(err, posts){
-			// 	if(err) throw err ;
-			// 	if(category.title == "Videos")
-			// 		pageId = "video_category";
-			// 	else 
-			// 		pageId = "other_category";
-			// 	res.render('category_view', { pageTitle: category.title, category:category, pageId : pageId, layout: 'layouts/main', posts:posts })
-				
-			// })
-		// }
+		
 		try {
  
+			 //  i blv you are using Node v7.6.0+ which has async/await support
     	const [ results, itemCount ] = await Promise.all([
       	Post.find({category:category}).populate('category').limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
-	      	Post.countDocuments({})
+	      	Post.countDocuments({category:category})
 	    ]);
  
     	const pageCount = Math.ceil(itemCount / req.query.limit);
  		
  		if(category.title == "Videos")
-					pageId = "video_category";
-				else 
-					pageId = "other_category";
+			pageId = "video_category";
+		else 
+			pageId = "other_category";
  	
       res.render('category_view', {
         posts: results,

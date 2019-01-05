@@ -94,17 +94,17 @@ let Comment = require('./models/comment');
 app.get('*', async (req, res, next) => {
 	res.locals.user = req.user || null;
 	
-	// ///get poopular post
-	// //Porpular blog
-	// Post.find({times_seen: { $gte: 0 }})
-	// .sort('-times_seen')
- //    .limit(3)
- //    .populate('category')
- //    // .skip(1)
- //    .exec(function(err, posts){
-	// 	if(err) throw err;
- //    	app.locals.porpularPosts = posts;
-	// });
+	///get poopular post
+	//Porpular blog
+	Post.find({times_seen: { $gte: 0 }})
+	.sort('-times_seen')
+    .limit(3)
+    .populate('category')
+    // .skip(1)
+    .exec(function(err, posts){
+		if(err) throw err;
+    	app.locals.porpularPosts = posts;
+	});
 
 	// ///get recentPosts
 	// //recentPosts 
@@ -125,7 +125,6 @@ app.get('*', async (req, res, next) => {
 		
 		]);
     	app.locals.categories = categories;
-    	console.log(categories)
 
 	}
 	catch (err) {
@@ -159,15 +158,6 @@ templateUtil.registerWatchedPartials('${__dirname}/views/partials');
 templateUtil.precompilePartials('${__dirname}/views/partials');
 //register helper
 hbs.registerHelper({
-	eq: (val1, val2) => { return val1 === val2; },
-	h1: (content)=>{ return new hbs.handlebars.SafeString("<h1>"+content+"</h1>");},
-	ne: (val1, val2) => { return val1 !== val2; },
-	lt: (val1, val2) => { return val1 < val2; },
-	gt: (val1, val2) => { return val1 > val2; },
-	lte: (val1, val2) => { return val1 <= val2; },
-	gte: (val1, val2) => { return val1 >= val2; },
-	and: (val1, val2) => { return val1 && val2; },
-	or: (val1, val2) => { return val1 || val2; },
 	count: (array) => { return array.length; },
 	aside_blog_body: (text) => { 
 		 if(text.length > 80)
@@ -385,15 +375,51 @@ app.use('/categories', require('./routes/categories'));
 
 
 // home route
-app.get('/', function(req, res){
+app.get('/', async (req, res)=>{
+
+	var categories = app.locals.categories;
+	var categories_posts = [];
+	
+	for (var i = 0; i < categories.length; i++) {
+		category = categories[i];
+
+		try{
+			const [ posts ] = await Promise.all([
+		 		Post.find({category:category}).populate('category').limit(2).sort('-created_at').exec()
+			
+			]);
+
+
+			var posts_list = [];
+
+			posts.forEach((post)=>{
+	    		posts_list.push(post);
+			});
+
+			if(posts_list.length != 0)
+				categories_posts.push({
+					category: category.title,
+					posts: posts_list
+				});
+
+		}
+		catch (err) {
+		    next(err);
+		}
+
+	}
 	res.render('index',{
 		
         pageTitle: "Technology and Innovation",
         layout: 'layouts/main',
-        home: true
+        home: true,
+        categories_posts: categories_posts
 	})
 	// res.send("Hello World");
 });
+
+
+
 app.get('/faker', function(req, res){
 	faker.seed(123);
 	

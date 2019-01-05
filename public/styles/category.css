@@ -243,7 +243,7 @@ section
 }
 .parallax-window
 {
-    min-height: 400px;
+    min-height: 300px;
     background: transparent;
 }
 .parallax_background
@@ -475,7 +475,7 @@ section
 .header_extra
 {
 	width: 557px;
-	height: 131px;
+	height: 90px;
 	padding-left: 30px;
 }
 .header_extra a
@@ -1024,7 +1024,7 @@ section
 
 .content_container
 {
-	padding-top: 20px;
+	padding-top: 0px;
 	padding-bottom: 20px;
 	background: #FFFFFF;
 }
@@ -1270,7 +1270,7 @@ section
 }
 .load_more_button
 {
-	width: 264px;
+	width: auto;
 	height: 59px;
 	background: #624693;
 	border: solid 1px #dcdcdc;

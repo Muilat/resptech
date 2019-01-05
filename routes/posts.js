@@ -12,7 +12,7 @@ const paginate = require('express-paginate');
 var  path = require("path");
 // var  sharp = require("sharp");
 
-
+const extractFrame = require('ffmpeg-extract-frame')
 const multer = require('multer');
 // Set The Storage Engine
 var obj = {};
@@ -30,10 +30,13 @@ var video_storage = multer.diskStorage({
 //functin to get filename
 function filename(req, file, cb){
     var ext = path.extname(file.originalname);
-    var file_name = Date.now()+ext;
+    var name = Date.now();
+    var file_name = name+ext;
     obj.file_name = file_name;
+    obj.name = name;
     
     cb(null,file_name);
+
 };
 
 // Init image Upload
@@ -224,19 +227,27 @@ router.post('/add', upload_image, validateAddNewPostBody, function(req, res){
 });
 
 // add new post postMethod
-router.post('/add_video', upload_video, validateAddNewPostBody, function(req, res, next){
+router.post('/add_video', upload_video, validateAddNewPostBody, async (req, res, next)=>{
   try{
       if (!obj.file_name) {
           res.redirect('back');
       }else{
-        post = new Post({
-          title : req.body.title,
-          category : req.body.category,
-          body : req.body.body,
-          image: obj.file_name,
-          author:"muibudeen Abdullateeef"
+
+            //create fram
+             extractFrame({
+              input: './public/uploads/videos/'+obj.file_name,
+              output: './public/uploads/blogs/'+obj.name+'.jpg',
+              offset: 1000 // seek offset in milliseconds
+            })
+
+            post = new Post({
+                title : req.body.title,
+                category : req.body.category,
+                body : req.body.body,
+                image: obj.file_name,
+                author:"muibudeen Abdullateeef"
           
-        });
+            });
 
           post.save(function(err){
           if(err) throw err;
