@@ -105,11 +105,9 @@ function checkFileType(file, req, cb){
 
 
 //inport models
-let Category = require('../models/category');
-let Post = require('../models/post');
-
-
-
+const Category = require('../models/category');
+const Post = require('../models/post');
+const Tag = require('../models/tag');
 
 
 ///////////////admin////////////
@@ -183,29 +181,32 @@ router.get('/:category', async (req, res, next) =>{
 		try {
  
 			 //  i blv you are using Node v7.6.0+ which has async/await support
-    	const [ results, itemCount ] = await Promise.all([
-      	Post.find({category:category}).populate('category').limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
-	      	Post.countDocuments({category:category})
-	    ]);
+    		const [ results, itemCount, tags ] = await Promise.all([
+	      		Post.find({category:category}).populate('category').limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
+		      	Post.countDocuments({category:category}),
+		      	Tag.find({}).limit(25).sort('-created_at').exec()
+		    ]);
  
-    	const pageCount = Math.ceil(itemCount / req.query.limit);
- 		
- 		if(category.title == "Videos")
-			pageId = "video_category";
-		else 
-			pageId = "other_category";
+	    	const pageCount = Math.ceil(itemCount / req.query.limit);
+	 		
+	 		if(category.title == "Videos")
+				pageId = "video_category";
+			else 
+				pageId = "other_category";
+			
  	
-      res.render('category_view', {
-        posts: results,
-        pageCount,
-        itemCount,
-        pages: paginate.getArrayPages(req)(5, pageCount, req.query.page),
-        pageTitle: category.title, category:category, pageId : pageId, layout: 'layouts/main'
-      });
+	      	res.render('category_view', {
+		        posts: results,
+		        pageCount,
+		        itemCount,
+		        pages: paginate.getArrayPages(req)(5, pageCount, req.query.page),
+		        pageTitle: category.title, category:category, pageId : pageId, layout: 'layouts/main',
+		        tags: tags
+		      });
  
-  } catch (err) {
-    next(err);
-  }
+		} catch (err) {
+		    next(err);
+		}
 																						
 	});
 

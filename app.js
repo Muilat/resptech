@@ -376,13 +376,6 @@ app.use(paginate.middleware(5, 50));
 app.use('/posts', require('./routes/posts'));
 app.use('/categories', require('./routes/categories'));
 
-
-// //bring in models
-// let Post = require('./models/post');
-// let Category = require('./models/category');
-// let Comment = require('./models/comment');
-
-
 // home route
 app.get('/', async (req, res)=>{
 
@@ -417,12 +410,19 @@ app.get('/', async (req, res)=>{
 		}
 
 	}
+
+	const [ tags ] = await Promise.all([
+ 		Tag.find({}).limit(25).sort('-created_at').exec()
+	
+	]);
+
 	res.render('index',{
 		
         pageTitle: "Technology and Innovation",
         layout: 'layouts/main',
         home: true,
-        categories_posts: categories_posts
+        categories_posts: categories_posts,
+        tags: tags
 	})
 	// res.send("Hello World");
 });
@@ -434,7 +434,7 @@ app.get('/faker', function(req, res){
 	
         Category.findById("5c09c39efb9c4f9a0c645a2a",function(err, category){
 
-for (var i = 0; i < 80; i++) {
+	for (var i = 0; i < 80; i++) {
         var post = new Post();
 
 	        post.category = category._id;
