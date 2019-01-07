@@ -12,3 +12,38 @@
 	height:auto; 
 	color:#fff;
 }
+
+.tags
+{
+	margin-top: 32px;
+}
+.tags_content
+{
+	margin-top: 20px;
+
+}
+.cat_innovation
+{
+	background: #f8259f !important;
+}
+.cat_innovation a
+{
+	color: #FFFFFF !important;
+}
+.tag
+{
+	height: auto;
+	background: #ebeded;
+	margin-right: 10px;
+	margin-bottom: 8px;
+}
+.tag a
+{
+	width:auto;
+	display: block;
+	padding-left: 16px;
+	padding-right: 18px;
+	font-size: 12px;
+	color: #000000;
+	line-height: 30px;
+}

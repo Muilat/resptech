@@ -89,6 +89,7 @@ app.use(passport.session());
 let Category = require('./models/category');
 let Post = require('./models/post');
 let Comment = require('./models/comment');
+let Tag = require('./models/tag');
 
 //global variable for all routes
 app.get('*', async (req, res, next) => {
@@ -96,15 +97,15 @@ app.get('*', async (req, res, next) => {
 	
 	///get poopular post
 	//Porpular blog
-	Post.find({times_seen: { $gte: 0 }})
-	.sort('-times_seen')
-    .limit(3)
-    .populate('category')
-    // .skip(1)
-    .exec(function(err, posts){
-		if(err) throw err;
-    	app.locals.porpularPosts = posts;
-	});
+	// Post.find({times_seen: { $gte: 0 }})
+	// .sort('-times_seen')
+ //    .limit(3)
+ //    .populate('category')
+ //    // .skip(1)
+ //    .exec(function(err, posts){
+	// 	if(err) throw err;
+ //    	app.locals.porpularPosts = posts;
+	// });
 
 	// ///get recentPosts
 	// //recentPosts 
@@ -223,6 +224,14 @@ hbs.registerHelper({
 		 	return new hbs.handlebars.SafeString(`<li><a href="/users/register">Register</a></li>
                 <li><a href="/users/login">Login</a></li>`);  
 	},
+	cat_tag:(index)=>{
+		if (index%5 == 4) return 'cat_innovation';
+		if (index%5 == 3) return 'cat_video';
+		if (index%5 == 2) return 'cat_world';
+		if (index%5 == 1) return 'cat_party';
+		if (index%5 == 0) return 'cat_technology';
+
+	}
 	
 	
 });

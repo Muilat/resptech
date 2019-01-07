@@ -30,8 +30,16 @@
                             </select>
 						</div>
 					</div>
-					<input type="file" name="image" class="reply_input" placeholder="Category Image" required="required">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="file" name="image" class="reply_input" placeholder="Category Image" required="required">
+						</div>
+						<div class="col-md-6">
+							<textarea class="reply_input " name="tags" id="tags" placeholder="Blog Tags separated with e.g tech, info & comm, science " ></textarea>
+						</div>
+					</div>
 					<textarea class="reply_input reply_textarea" name="body" id="body" placeholder="Blog Detail" required="required"></textarea>
+					
 					<button class="reply_button trans_200">submit</button>
 				</form>
 			</div>
@@ -46,7 +54,7 @@
 	<script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
 	<script type="text/javascript">
 
-		CKEDITOR.replace( 'body' );
+		// CKEDITOR.replace( 'body' );
 
 
 		function isItVideo(){

@@ -1474,30 +1474,6 @@ section
 {
 	color: #61e49b;
 }
-.tags
-{
-	margin-top: 52px;
-}
-.tags_content
-{
-	margin-top: 60px;
-}
-.tag
-{
-	height: 44px;
-	background: #ebeded;
-	margin-right: 10px;
-	margin-bottom: 8px;
-}
-.tag a
-{
-	display: block;
-	padding-left: 33px;
-	padding-right: 36px;
-	font-size: 12px;
-	color: #000000;
-	line-height: 44px;
-}
 
 /*********************************
 8. Footer

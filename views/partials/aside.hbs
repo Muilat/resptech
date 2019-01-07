@@ -63,6 +63,26 @@
 					</div>
 				</div>
 
+				<!-- Tags -->
+				{{#if tags}}
+					<div class="tags">
+						<div class="sidebar_title">Tags</div>
+						<div class="tags_content d-flex flex-row align-items-start justify-content-start flex-wrap">
+							{{#tags}}
+								
+								<div class="tag {{cat_tag @index }}"><a href="/posts/tags/{{_id}}">{{title}}</a></div>
+							{{/tags}}
+							<div class="tag {{cat_tag 2}}"><a href="category.html">design</a></div>
+							<div class="tag {{cat_tag 3}}"><a href="category.html">travel</a></div>
+							<div class="tag {{cat_tag 4}}"><a href="category.html">video</a></div>
+							<div class="tag {{cat_tag 5}}"><a href="category.html">party</a></div>
+							<div class="tag {{cat_tag 6}}"><a href="category.html">music</a></div>
+							<div class="tag {{cat_tag 7}}"><a href="category.html">world</a></div>
+							<div class="tag {{cat_tag 8}}"><a href="category.html">adventure</a></div>
+						</div>
+					</div>
+				{{/if}}
+
 				<!-- Extra -->
 				<div class="sidebar_extra">
 					<a href="#">
