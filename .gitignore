@@ -1,9 +1,9 @@
 # ignore packages installed by npm
 node_modules
+public/js/plugins
+public/images
+public/uploads
 *~
 .DS_Store
 bower_components
 public/ckeditor
-public/js/plugins
-public/images
-public/uploads
