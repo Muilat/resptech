@@ -32,12 +32,14 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="home_content">
-                                        <div class="home_title">Article</div>
+                                        <div class="home_title">{{pageTitle}}</div>
                                         <div class="breadcrumbs">
                                             <ul class="d-flex flex-row align-items-start justify-content-start">
-                                                <li><a href="/index.html">Home</a></li>
-                                                <li><a href="/category.html">Technology</a></li>
-                                                <li>Article</li>
+                                                <li><a href="/">Home</a></li>
+                                                {{#ifCond pageId "==" "blog_view"}}
+                                                    <li><a href="/posts">All Posts</a></li>
+                                                {{/ifCond}}
+                                                <li>{{pageTitle}}</li>
                                             </ul>
                                         </div>
                                     </div>

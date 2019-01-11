@@ -11,7 +11,7 @@ var  path = require("path");
 var Jimp = require("jimp");
 
 
-const { ensureAuthenticated } = require('../../config/auth');
+const { ensureAuthenticated, mustBeSuperAdmin, mustBeAdmin } = require('../../config/auth');
 
 const multer = require('multer');
 // Set The Storage Engine
@@ -119,12 +119,18 @@ let User = require('../../models/user');
 
 
 // dashboard get 
-router.get('/', function(req, res){
+router.get('/', ensureAuthenticated, async(req, res)=>{
+
+	const [users/*, categories*/] = await Promise.all([
+		User.find({}).exec()
+		// Category.find({}).exec()
+		]);
 
 	res.render('admin/dashboard', {
 		pageTitle: "Dashboard",
 		pageId : "dashboard",
 		layout:'layouts/admin_main',
+		users,
 	});	 
 	
 });
@@ -189,6 +195,7 @@ router.post('/categories/add', ensureAuthenticated, upload, validateBody, functi
 
 
 router.use('/users', require('./users'));
+router.use('/posts', require('./posts'));
 
 
 

@@ -6,7 +6,7 @@ module.exports = {
 	  }
 	  else{
 	    req.flash('danger', 'Please login');
-	    res.redirect('/users/login')
+	    res.redirect('/admin/users/login')
 	  }
 	  
 	},
@@ -21,7 +21,7 @@ module.exports = {
 	  }
 	  else{
 	    req.flash('danger', 'Please login');
-	    res.redirect('/users/login')
+	    res.redirect('/admin/users/login')
 	  }
 	  
 	},
@@ -36,7 +36,17 @@ module.exports = {
 	  }
 	  else{
 	    req.flash('danger', 'Please login');
-	    res.redirect('/users/login')
+	    res.redirect('/admin/users/login')
+	  }
+	  
+	},
+
+	mustBeVisitor : function(req, res, next){
+	  if(!req.isAuthenticated()){
+	    	return next();
+	  }
+	  else{
+	    res.redirect('/admin')
 	  }
 	  
 	}

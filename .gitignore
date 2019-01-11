@@ -3,6 +3,7 @@ node_modules
 public/js/plugins
 public/images
 public/uploads
+config/credentials.js
 *~
 .DS_Store
 bower_components

@@ -19,7 +19,7 @@ router.get('/register', function(req, res){
 	res.render('register', {
 		pageTitle: "User Registration",
 		pageId : "register",
-		layout:'layouts/admain_main',
+		layout:'layouts/admin_main',
 	});	 
 	
 });
@@ -108,7 +108,7 @@ router.get('/login', function(req, res){
 	res.render('login',{
 		pageTitle: "User Login",
 		pageId : "login",
-		layout:'layouts/admain_main',
+		layout:'layouts/admin_main',
 	})
 });
 

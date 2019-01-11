@@ -99,26 +99,26 @@ app.get('*', async (req, res, next) => {
 	
 	///get poopular post
 	//Porpular blog
-	// Post.find({times_seen: { $gte: 0 }})
-	// .sort('-times_seen')
- //    .limit(3)
- //    .populate('category')
- //    // .skip(1)
- //    .exec(function(err, posts){
-	// 	if(err) throw err;
- //    	app.locals.porpularPosts = posts;
-	// });
+	Post.find({times_seen: { $gte: 0 }})
+	.sort('-times_seen')
+    .limit(3)
+    .populate('category')
+    // .skip(1)
+    .exec(function(err, posts){
+		if(err) throw err;
+    	app.locals.porpularPosts = posts;
+	});
 
-	// ///get recentPosts
-	// //recentPosts 
-	// Post.find({})
-	// .sort('-created_at')
- //    .limit(4)
- //    .populate('category')
- //    .exec(function(err, posts){
-	// 	if(err) throw err;
- //    	app.locals.recentPosts = posts;
-	// });
+	///get recentPosts
+	//recentPosts 
+	Post.find({})
+	.sort('-created_at')
+    .limit(4)
+    .populate('category')
+    .exec(function(err, posts){
+		if(err) throw err;
+    	app.locals.recentPosts = posts;
+	});
 
 	// ///get categories
 	// //categories 
