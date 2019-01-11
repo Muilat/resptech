@@ -71,6 +71,7 @@ router.post('/register', validateRegistration,
 	 			saveUser(req, res, user);
  		}
  		else{
+ 			user.isAdmin = true
 			user = new User({name,email,/*password*/});
 			saveUser(req, res, user);
  		}
