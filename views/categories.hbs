@@ -30,24 +30,6 @@
                 </div>
             </div>
 
-
-			<!-- Create New Category  -->
-			<div class="reply_form_container">
-				<div class="reply_form_title">Create New Category</div>
-				<form action="/categories/add?_csrf={{_csrfToken}}" method="POST" enctype="multipart/form-data" id="reply_form" class="reply_form">
-					<div class="row">
-						<div class="col-md-6">
-							<input type="text" name="title" class="reply_input" placeholder="Name" required="required">
-						</div>
-						<div class="col-md-6">
-							<input type="text" name="color" class="reply_input" placeholder="Color" required="required">
-						</div>
-					</div>
-					<input type="file" name="image" class="reply_input" placeholder="Category Image" required="required">
-					<textarea class="reply_input reply_textarea" name="description" placeholder="Category Description" required="required"></textarea>
-					<button class="reply_button trans_200">submit</button>
-				</form>
-			</div>
 		</div>
 				
 		

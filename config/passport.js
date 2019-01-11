@@ -14,7 +14,7 @@ module.exports = function(passport){
 				throw err;
 			}
 			if(!user){
-				return done(null, false,{message:"Email do not exist!"});
+				return done(null, false,{message:"Email does not exist!"});
 			}
 
 			//match passwword

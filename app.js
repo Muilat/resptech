@@ -42,6 +42,14 @@ app.use(session({
   	// cookie : { secure : true}
 }));
 
+
+
+//passport config
+require('./config/passport.js')(passport);
+//passpoorrt middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 // express messages middleware
 app.use(flash());
 app.use(function(req, res, next){
@@ -77,12 +85,6 @@ app.use(validator(
 // 	next();
 // });
 
-
-//passport config
-require('./config/passport.js')(passport);
-//passpoorrt middleware
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 // //inport models
@@ -184,7 +186,7 @@ hbs.registerHelper({
               </ul>
             </div>*/
          // with
-        messages = messages.replace('<div id="messages">', '<div id="flash-messages" class="">');
+        messages = messages.replace('<div id="messages">', '<div id="flash-messages" class="" style="padding-left:30px;padding-right:30px">');
         messages = messages.replace('<ul class="success">', '<ul class="alert alert-success">');
         messages = messages.replace('<ul class="info">', '<ul class="alert alert-info">');
         messages = messages.replace('<ul class="danger">', '<ul class="alert alert-danger">');
@@ -215,14 +217,14 @@ hbs.registerHelper({
 		}
 		return new hbs.handlebars.SafeString(pagination_html)
 	},
-	user_auth: (user) => { 
+	user_auth: (user, menu_mm="") => { 
 		
 		 if(user)
                 
-		 	return new hbs.handlebars.SafeString(`<li><a href="/users/logout">Logout</a></li>`);
+		 	return new hbs.handlebars.SafeString(`<li class=${menu_mm}><a href="/users/logout">Logout</a></li>`);
 		 else
-		 	return new hbs.handlebars.SafeString(`<li><a href="/users/register">Register</a></li>
-                <li><a href="/users/login">Login</a></li>`);  
+		 	return new hbs.handlebars.SafeString(`<li class=${menu_mm}><a href="/users/register">Register</a></li>
+                <li class=${menu_mm}><a href="/users/login">Login</a></li>`);  
 	},
 	cat_tag:(index)=>{
 		if (index%5 == 4) return 'cat_innovation';
@@ -366,15 +368,11 @@ db.on('error', function(err){
 app.use(paginate.middleware(5, 50));
 
 
-
-
-// //bring in routes
-// app.use(require('./routes/blog'));
-// app.use(require('./routes/category'));
-// app.use(require('./routes/comment'));
-
 app.use('/posts', require('./routes/posts'));
 app.use('/categories', require('./routes/categories'));
+app.use('/users', require('./routes/users'));
+//admin
+app.use('/admin', require('./routes/admin/admin'));
 
 // home route
 app.get('/', async (req, res)=>{
@@ -387,7 +385,7 @@ app.get('/', async (req, res)=>{
 
 		try{
 			const [ posts ] = await Promise.all([
-		 		Post.find({category:category}).populate('category').limit(2).sort('-created_at').exec()
+		 		Post.find({category:category}).populate('author').populate('category').limit(2).sort('-created_at').exec()
 			
 			]);
 

@@ -1,0 +1,70 @@
+{{#extend 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="/styles/myadmin.css">
+	        
+{{/extend}}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{pageTitle}}<span class="pull-right" data-toggle="modal" data-target="#add-category"><h2><i class="fa fa-plus"></i>Add Category</h2></span></h1>
+
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    {{#each categories}}
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img src="/uploads/categories/{{image}}" alt="" class="img-responsive">
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">26</div>
+                            <div>{{title}}</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">Edit</span>
+                        <span class="pull-right"><i class="fa fa-edit"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    
+    {{/each}}
+
+    
+</div>
+<!-- /.row -->
+
+<div class="modal fade" id="add-category" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/categories/add?_csrf={{_csrfToken}}" method="POST" enctype="multipart/form-data" id="reply_form" class="reply_form">
+                        <input type="text" name="title" class="reply_input" placeholder="Name" required="required">
+                        <input type="file" name="image" class="reply_input" placeholder="Category Image" required="required">
+                        <textarea class="reply_input reply_textarea" name="description" placeholder="Category Description" required="required"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#extend 'scripts'}}
+
+{{/extend}}

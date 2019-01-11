@@ -14,14 +14,11 @@ let postSchema = mongoose.Schema({
         type: String, 
         // required:true
     },
-    author:{ 
-        type: String, 
-        required:true
-    },
-    /*author: {
+    author: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User'
-    },*/
+        ref: 'User',
+        required: true
+    },
     image:{ 
         type: String, 
         required:true

@@ -1,0 +1,90 @@
+.reply_form_container
+{
+	margin-top: 20px;
+}
+.reply_form_title
+{
+	font-size: 18px;
+	color: #000000;
+}
+.reply_form
+{
+	margin-top: 15px;
+}
+.reply_input
+{
+	display: block;
+	width: 100%;
+	height: 47px;
+	padding-left: 20px;
+	border: none;
+	outline: none;
+	border-bottom: solid 1px #000000;
+	margin-bottom: 28px;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.reply_input::-webkit-input-placeholder
+{
+	font-size: 13px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #949494 !important;
+}
+.reply_input:-moz-placeholder
+{
+	font-size: 13px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #949494 !important;
+}
+.reply_input::-moz-placeholder
+{
+	font-size: 13px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #949494 !important;
+} 
+.reply_input:-ms-input-placeholder
+{ 
+	font-size: 13px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #949494 !important;
+}
+.reply_input::input-placeholder
+{
+	font-size: 13px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #949494 !important;
+}
+.reply_textarea
+{
+	height: 140px;
+}
+.reply_input:focus
+{
+	border-bottom: solid 1px #61e49b;
+}
+.reply_button
+{
+	width: 136px;
+	height: 51px;
+	background: #61e49b;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	margin-top: 12px;
+}
+.reply_button:hover
+{
+	background: #624693;
+}

@@ -6,6 +6,8 @@ const { check, validationResult } = require('express-validator/check');
 //pagnation
 const paginate = require('express-paginate');
 
+const { ensureAuthenticated } = require('../config/auth');
+
 //form&files handling
 // var formidable = require('formidable');
 // var fs = fs = require("fs");
@@ -103,7 +105,7 @@ router.get('/', async (req, res, next) => {
   try {
  
     const [ results, itemCount ] = await Promise.all([
-      Post.find({})/*.populate('author')*/.populate('category').limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
+      Post.find({}).populate('author').populate('category').limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
       Post.countDocuments({})
     ]);
  
@@ -138,8 +140,8 @@ router.get('/view/:blogId', function(req, res, next){
 
     var blogId = req.params.blogId;
     Post.findById(mongoose.Types.ObjectId(blogId))
-    // .populate('author')
-    .populate('comments')
+    .populate('author')
+    .populate({path:'comments', populate:{path:"author"}})
     .populate('category')
     .populate('tags')
     // .populate({path:'comments', populate: {path: 'replies'}})
@@ -159,14 +161,16 @@ router.get('/view/:blogId', function(req, res, next){
         }
 
       
-                
+                for(comment of post.comments){
+                    console.log(comment.author)
+                }
     });
 
   
 });
 
 //add new blog get
-router.get('/add', /*ensureAuthenticated,*/ (req, res)=>{
+router.get('/add', ensureAuthenticated, (req, res)=>{
 
   
   // Category.find({}, function(err, categories){
@@ -204,7 +208,7 @@ const validateAddNewPostBody = function(req,res,next){
 }
 
 // add new post postMethod
-router.post('/add', upload_image, validateAddNewPostBody, async (req, res)=>{
+router.post('/add', ensureAuthenticated, upload_image, validateAddNewPostBody, async (req, res)=>{
   
     if (!obj.file_name) {
         res.redirect('back');
@@ -213,12 +217,13 @@ router.post('/add', upload_image, validateAddNewPostBody, async (req, res)=>{
         tags = req.body.tags;
         tags = tags.split(',');
 
+
         newPost = new Post({
               title : req.body.title,
               category : req.body.category,
               body : req.body.body,
               image: obj.file_name,
-              author:"muibudeen Abdullateeef"
+              author: req.user
           
         }); 
 
@@ -271,7 +276,7 @@ function savePostAndTags(newPost, tags){
 }
 
 // add new post postMethod
-router.post('/add_video', upload_video, validateAddNewPostBody, async (req, res, next)=>{
+router.post('/add_video', ensureAuthenticated, upload_video, validateAddNewPostBody, async (req, res, next)=>{
     try{
         if (!obj.file_name) {
             res.redirect('back');
@@ -293,7 +298,7 @@ router.post('/add_video', upload_video, validateAddNewPostBody, async (req, res,
                 category : req.body.category,
                 body : req.body.body,
                 image: obj.file_name,
-                author:"muibudeen Abdullateeef"
+                author: req.user
           
             });
 
@@ -317,7 +322,7 @@ const validateAddCommentBody = function(req,res,next){
     if(!req.user){ //not a logged in user
         req.checkBody('author').notEmpty().withMessage('Your name is required');
         req.checkBody('email').notEmpty().withMessage('Email is required');
-        req.checkBody('email').isEmail().withMessage('Email is required');
+        req.checkBody('email').isEmail().withMessage('Email is not valid');
     }
 
     req.checkBody('comment').notEmpty().withMessage('Comment is required');
@@ -336,48 +341,70 @@ const validateAddCommentBody = function(req,res,next){
 // post comment 
 router.post('/comment', validateAddCommentBody, async(req, res, next)=>{
 
-    var blogId = req.body.post_id;
-    console.log(blogId)
+    let blogId = req.body.post_id;
 
-    var post;
+    let post;
     // find post
     try{
-        const post1 = await Promise.all([
+        const post = await Promise.all([
             Post.findOne({_id:blogId})
         ]);
-        console.log()
-        post = post1;
+        if (!post) {
+            next(err);
+        }
 
+        if(!req.user){ //not a logged in user
+            email = req.body.email;
+            name = req.body.author;
+            await User.findOne({email:email}, (err, user)=>{
+                console.log(user);
+                if(!user){
+                    user = new User({name, email, password:""});
+                    user.save(err=>{
+                        if(err) throw err;
+                        console.log("innnnnn "+user);
+
+                    });
+                    
+                }
+
+                saveComment(req, res, user, post[0]/*//the promise on post returns an array*/)
+
+
+            });
+            
+
+        }
+        else{
+            let author = req.user;
+            saveComment(req, res, author, post[0]/*//the promise on post returns an array*/)
+        }
+        
     }
     catch (err) {
         next(err);
     }
 
-    if(!req.user){ //not a logged in user
-        email = req.body.email;
-        author = req.body.author;
-    }
-    else{
-        email = req.user.email;
-        author = req.user.name;
-    }
+   
+
+});
+
+
+function saveComment(req, res, author, post){
     comment = new Comment({
-        author: author,
-        email: email,
+        author: author._id,
         comment: req.body.comment,
-        post: blogId
+        post: post._id
     });
 
-    post = post[0];//the promise on post returns an array
     comment.save(function(err){
         if(err) throw err;
         post.comments.addToSet(comment._id);
         
         post.save();
-        res.redirect('/posts/view/'+blogId);
+        res.redirect('/posts/view/'+post._id);
     });
-
-});
+}
 
 //view blogs/posts based on tag get Method
 router.get('/tags/:tagId', (req, res, next)=>{
@@ -396,7 +423,7 @@ router.get('/tags/:tagId', (req, res, next)=>{
         }
         else{
             const [ results, itemCount ] = await Promise.all([
-              Post.find({"tags":tag._id}).populate('category')/*.populate('author')*/.limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
+              Post.find({"tags":tag._id}).populate('category').populate('author').limit(req.query.limit).skip(req.skip).lean().sort('-created_at').exec(),
               Post.countDocuments({"tags":tag._id})
             ]);
          
@@ -420,16 +447,6 @@ router.get('/tags/:tagId', (req, res, next)=>{
   
 });
 
-//access control
-function ensureAuthenticated(req, res, next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-  else{
-    req.flash('danger', 'Please login');
-    res.redirect('/users/login')
-  }
-  
-}
+
  
 module.exports = router;

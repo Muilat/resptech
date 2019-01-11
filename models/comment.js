@@ -3,13 +3,11 @@ const mongoose = require('mongoose').set('debug',true);
 let commentSchema = mongoose.Schema({
 	// _id: mongoose.Schema.Types.ObjectId,
 	author: {
-		type:String,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
         required:true
 	},
-	email: {
-		type:String,
-        required:true
-	},post: {
+	post: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Post'
 	},

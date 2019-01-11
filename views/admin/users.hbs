@@ -1,0 +1,81 @@
+{{#extend 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="/styles/myadmin.css">
+	        
+{{/extend}}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{pageTitle}}<span class="pull-right" data-toggle="modal" data-target="#add-user"><h2><i class="fa fa-plus"></i>Add New Admin</h2></span></h1>
+
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    {{#each users}}
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img src="/images/users/{{avatar}}" alt="" class="img-responsive">
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="medium">{{name}}</div>
+                            <div>{{email}}</div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="panel-footer">
+                        <a href="">
+                            <div class="col-md-6">
+                                    <span class="pull-left">Edit</span>
+                                <span class="pull-right"><i class="fa fa-edit"></i></span>
+                            </div>
+                        </a>
+                        <a href="" style="color: red">
+                            <div class="col-md-6">
+                                    <span class="pull-left">Delete</span>
+                                <span class="pull-right"><i class="fa fa-remove"></i></span>
+                            </div>
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+            </div>
+        </div>
+    
+    {{/each}}
+
+    
+</div>
+<!-- /.row -->
+
+<div class="modal fade" id="add-user" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Admin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/users/add?_csrf={{_csrfToken}}" method="POST" id="reply_form" class="reply_form">
+            <input type="text" name="name" class="reply_input" placeholder="Admin Name" required="required">
+            <input type="email" name="email" class="reply_input" placeholder="Admin Email" required="required">
+            <select name="role" class="reply_input" placeholder="Admin Role" required="required">
+                <option value="1">Admin</option>
+                <option value="2">Super Admin</option>
+            </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add Admin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#extend 'scripts'}}
+
+{{/extend}}

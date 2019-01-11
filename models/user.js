@@ -13,16 +13,26 @@ var userSchema = mongoose.Schema({
         required:true,
         unique:true,
     },
-	role: { 
-        type: String, 
+	isSuperAdmin: { 
+        type: Boolean, 
         required:true,
-        "default": "admin"
+        "default": false
     },
-	created_at:{type: Date,
+    isAdmin: { 
+        type: Boolean, 
+        required:true,
+        "default": false
+    },
+    created_at:{type: Date,
 		"default": Date.now
 	},
 	password:{ 
         type: String, 
+        // required:true
+    },
+    avatar:{ 
+        type: String, 
+        "default": "avatar.png"
         // required:true
     },
 });

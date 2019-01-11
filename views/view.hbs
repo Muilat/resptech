@@ -15,7 +15,7 @@
 					{{#ifCond post.category.title "==" "Videos"}}
 						<div class="embed-responsive embed-responsive-16by9"> <video width="320" height="240" controls> <source src="/uploads/videos/{{post.image}}" type="video/mp4"> </video> </div>
 					{{else}}
-						<img src="/uploads/blogs/{{post.image}}" alt="https://unsplash.com/@cgower">
+						<img style="max-height: 550px;" class="img-responsive" src="/uploads/blogs/{{post.image}}" alt="https://unsplash.com/@cgower">
 					{{/ifCond}}
 				</div>	
 				<div class="post_content">
@@ -23,8 +23,8 @@
 					<div class="post_title"><a href="/posts/view/{{post._id}}">{{post.title}}</a></div>
 					<div class="post_info d-flex flex-row align-items-center justify-content-start">
 						<div class="post_author d-flex flex-row align-items-center justify-content-start">
-							<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
-							<div class="post_author_name"><a href="#">{{post.author}}</a></div>
+							<div><div class="post_author_image"><img src="/images/users/small/avatar.png" alt=""></div></div>
+							<div class="post_author_name"><a href="#">{{post.author.name}}</a></div>
 						</div>
 						<div class="post_date"><a href="#">{{moment post.created_at}}</a></div>
 						<div class="post_comments_num ml-auto"><a href="#comments">{{count post.comments}} comments</a></div>
@@ -63,8 +63,8 @@
 								<li class="comment">
 									<div class="post_info d-flex flex-row align-items-center justify-content-start">
 										<div class="post_author d-flex flex-row align-items-center justify-content-start">
-											<div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
-											<div class="post_author_name"><a href="#">{{author}}</a></div>
+											<div><div class="post_author_image"><img src="/images/users/small/avatar.png" alt=""></div></div>
+											<div class="post_author_name"><a href="#">{{author.name}}</a></div>
 										</div>
 										<div class="post_date"><a >{{moment created_at}}</a></div>
 									</div>
@@ -89,10 +89,12 @@
 					<form action="/posts/comment" method="post" id="reply_form" class="reply_form">
 						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
 						<input type="hidden" name="post_id" value="{{post._id}}">
-						
-						<input type="text" name="author" class="reply_input" placeholder="Name" required="required">
-						*Your e-mail address will not be published
-						<input type="email" name="email" class="reply_input" placeholder="E-mail Address" required="required">
+
+						{{#unless user}}
+							<input type="text" name="author" class="reply_input" placeholder="Name" required="required">
+							*Your e-mail address will not be published
+							<input type="email" name="email" class="reply_input" placeholder="E-mail Address" required="required">
+						{{/unless}}
 						<textarea name="comment" class="reply_input reply_textarea" placeholder="Comment" required="required"></textarea>
 						<button class="reply_button trans_200">submit</button>
 					</form>
