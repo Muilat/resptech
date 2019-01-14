@@ -70,7 +70,9 @@
 							<ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">
 								<li><a href="/">home</a></li>
 								{{> category}}
-
+								{{#if user}}
+									<li><a href="/admin">Dashboard</a></li>
+								{{/if}}
 							</ul>
 						</nav>
 

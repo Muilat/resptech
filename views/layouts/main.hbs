@@ -52,42 +52,23 @@
                     <!-- Home Slider -->
                     <div class="home_slider_container">
                         <div class="owl-carousel owl-theme home_slider">
-                            <!-- Slide -->
-                            <div class="owl-item home_slider_item">
-                                <div class="background_image" style="background-image:url(/images/home_slider.jpg)"></div>
-                                <div class="home_slider_content text-center">
-                                    <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                                        <div class="home_category"><a href="category.html">technology</a></div>
-                                        <div class="home_title">Building the Future</div>
-                                        <div class="home_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae sapien porttitor, dignissim quam sit amet, aliquam lorem. Fusce id ligula non risus mollis consectetur</div>
-                                        <div class="home_button trans_200"><a href="#">read more</a></div>
+
+                            {{#categories}}
+                                <!-- Slide -->
+                                <div class="owl-item home_slider_item">
+                                    <div class="background_image" style="background-image:url(/uploads/categories/{{image}})"></div>
+                                    <div class="home_slider_content text-center">
+                                        <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                                            <!-- <div class="home_category"><a href="/categories/{{title}}">{{title}}</a></div> -->
+                                            <div class="home_title"><a href="/categories/{{title}}">{{title}}</a></div>
+                                            <div class="home_text">{{description}}</div>
+                                            <div class="home_button trans_200"><a href="/categories/{{title}}">checkout</a></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Slide -->
-                            <div class="owl-item home_slider_item">
-                                <div class="background_image" style="background-image:url(images/home_slider.jpg)"></div>
-                                <div class="home_slider_content text-center">
-                                    <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                                        <div class="home_category"><a href="category.html">technology</a></div>
-                                        <div class="home_title">Building the Future</div>
-                                        <div class="home_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae sapien porttitor, dignissim quam sit amet, aliquam lorem. Fusce id ligula non risus mollis consectetur</div>
-                                        <div class="home_button trans_200"><a href="#">read more</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Slide -->
-                            <div class="owl-item home_slider_item">
-                                <div class="background_image" style="background-image:url(images/home_slider.jpg)"></div>
-                                <div class="home_slider_content text-center">
-                                    <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                                        <div class="home_category"><a href="category.html">technology</a></div>
-                                        <div class="home_title">Building the Future</div>
-                                        <div class="home_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae sapien porttitor, dignissim quam sit amet, aliquam lorem. Fusce id ligula non risus mollis consectetur</div>
-                                        <div class="home_button trans_200"><a href="#">read more</a></div>
-                                    </div>
-                                </div>
-                            </div>
+
+                            {{/categories}}
+                            
                         </div>
 
                         <!-- Home Slider Navigation -->
