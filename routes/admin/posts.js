@@ -214,7 +214,7 @@ router.post('/add_video', mustBeAdmin, upload_video, validateAddNewPostBody, asy
             //create frame from video
             extractFrame({
                 input: './public/uploads/videos/'+obj.file_name,
-                output: './public/uploads/blogs/'+obj.name+'.jpg',
+                output: './public/uploads/blogs/'+obj.file_name+'.jpg',
                 offset: 1000 // seek offset in milliseconds
             })
 
