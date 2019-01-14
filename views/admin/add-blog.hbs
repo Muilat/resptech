@@ -50,25 +50,21 @@
 	<script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
 	<script type="text/javascript">
 
-		// CKEDITOR.replace( 'body' );
+		CKEDITOR.replace( 'body' );
 
 
 		function isItVideo(){
 			var body_val =	$('#body').val();
 
 			var category = document.querySelector('select[name=category]').value;
-			// var Video_id = document.querySelector('select[atrr_video=video]').attr_value
 			var Video_id = $("select option[data-video='video']").attr('attr_value');
-				// console.log(category);
-				// console.log(Video_id);
 			if (category == Video_id) {
-			// document.querySelector('textarea[name=body]').hidden;
 				$('#body').hide();
 				if (body_val == '') 
 					$('#body').val('null');
 				else
 					$('#body').val(body_val);
-				$('#reply_form').attr("action","/posts/add_video?_csrf=");
+				$('#reply_form').attr("action","/admin/posts/add_video?_csrf=");
 
 
 			}
@@ -78,7 +74,7 @@
 					$('#body').val('');
 				else
 					$('#body').val(body_val);
-				$('#reply_form').attr("action","/posts/add?_csrf=");
+				$('#reply_form').attr("action","/admin/posts/add?_csrf=");
 
 
 			}
